@@ -8,12 +8,12 @@ pipeline {
 	    }
 	    stage ('Build') {
 	        steps {
-	            sh '/home/chaitanya/distros/apache-maven-3.6.0/bin/mvn install'
+	            sh '/home/chaitanya/distros/apache-maven-3.6.0/bin/ mvn install'
 	        }    
 	    }
         stage ('dockerfile image' ) {
         	steps {
-        		sh 'dockerfile true'
+        		sh 'docker build -t="kommalapudi123/docker_image" .' 
         	} 
         }
 
