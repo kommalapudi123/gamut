@@ -1,0 +1,37 @@
+pipeline {
+        agent {
+                label 'slave1'
+        }
+
+        parameters {
+              choice(name: 'ENVIRONMENT', choices: ['QA', 'SIT'], description: 'Pick something')
+           }
+          stages {
+            stage('Checkout') {
+                steps {
+                       checkout scm
+                    }}
+                stage('Build') {
+                steps {
+                               sh 'JAVA_HOME=/home/chaitanya/distros/jdk1.8.0_191 /home/chaitanya/distros/jdk1.8.0_191/bin/mvn install'
+            }}
+            stage('Deployment') {
+                steps {
+                  script {
+
+                   if (ENVIRONMENT == 'QA'){
+                        sh 'sshpass -p "Chaitu123" scp target/gamutkart.war chaitanya@172.17.0.3:/home/chaitanya/distros/apache-tomcat-8.5.35/webapps'
+                        sh 'sshpass -p "123" ssh chaitanya@172.17.0.3 "JAVA_HOME=/home/chaitanya/distros/jdk1.8.0_191" "/home/chaitanya/distros/apache-tomcat-8.5.35/bin/startup.sh"'
+                        echo "hello ${params.ENVIRONMENT}"
+                   }
+                  else if (ENVIRONMENT == 'SIT'){
+                        sh 'sshpass -p "123" scp target/gamutkart.war chaitanya@172.17.0.4:/home/chaitanya/distros/apache-tomcat-8.5.35/webapps'
+                        sh 'sshpass -p "123" ssh chaitanya@172.17.0.4 "JAVA_HOME=/home/chaitanya/distros/jdk1.8.0_191" "/home/chaitanya/distros/apache-tomcat-8.5.35/bin/startup.sh"'
+                  }
+
+                }}}
+           }
+           
+
+         }
+
