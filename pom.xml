@@ -29,6 +29,18 @@
 	<build>
 		<finalName>gamutkart</finalName>
 	</build>
+	<distributionManagement>
+           <repository>
+             <id>releases</id>
+             <name>Release repository</name>
+             <url>http://13.233.76.242:8081/repository/sample_rel/</url>
+           </repository>
+           <snapshotRepository>
+             <id>snapshots</id>
+             <name>snapshot repository</name>
+             <url>http://13.233.76.242:8081/repository/sample_snap/</url>
+           </snapshotRepository>
+       </distributionManagement>
 	
 </project>
 
