@@ -1,3 +1,3 @@
 practicing git pull and git fetch
-a=20
+a=0
 b=10
