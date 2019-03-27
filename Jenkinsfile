@@ -9,7 +9,7 @@ pipeline {
  		}
  		stage ('compile stage') {
  			steps {
- 				sh 'mvn clean install'
+ 				sh '/home/gamut/Distros/apache-maven-3.6.0/bin/mvn install'
 
  			}
  		}
